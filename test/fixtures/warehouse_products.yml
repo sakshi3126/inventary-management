@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_count: 1
+  low_item_threshold: 1
+  product: one
+  warehouse: one
+
+two:
+  item_count: 1
+  low_item_threshold: 1
+  product: two
+  warehouse: two
