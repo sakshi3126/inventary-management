@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku_code: MyString
+  name: MyString
+  price: 9.99
+  total_count: 1
+
+two:
+  sku_code: MyString
+  name: MyString
+  price: 9.99
+  total_count: 1

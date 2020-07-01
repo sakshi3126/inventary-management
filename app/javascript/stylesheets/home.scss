@@ -3,14 +3,18 @@
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
 }
-//
-///*
-// * Top navigation
-// * Hide default border to remove 1px line.
-// */
+
 .navbar-fixed-top {
     border: 0;
 }
 .navbar{
     padding-top: 0px;
+}
+
+.page-item.active .page-link{
+    background-color: #386290!important;
+    color: white!important;
+}
+.page-link{
+    color: #386290!important;
 }
