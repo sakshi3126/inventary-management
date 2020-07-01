@@ -20,4 +20,8 @@ class WarehouseProduct < ApplicationRecord
     end
   end
 
+  def to_s
+    self.product.name if self.product.present?
+  end
+
 end
