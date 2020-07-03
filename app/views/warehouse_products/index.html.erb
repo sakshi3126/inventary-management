@@ -16,7 +16,7 @@
         <% @warehouse_products.each_with_index do |product, index| %>
           <tr>
             <td><%= index + 1 %></td>
-            <td><%= product.product.sku_code %></td>
+            <td><%= link_to (product.product.sku_code), edit_product_path(product.product.id) %></td>
             <td><%= product.to_s %></td>
             <td><%= product.warehouse.name %></td>
             <td><%= status_badge(product.item_count) %></td>

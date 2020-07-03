@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update]
 
   def index
     @products = Product.order('created_at').page(params[:page]).per(10)
@@ -23,25 +23,19 @@ class ProductsController < ApplicationController
       end
       redirect_to products_path
     else
-      render json: {error: @product.errors}
+      render 'new'
     end
   end
 
-  # PATCH /api/v1/airlines/:slug
   def update
-    if @product.update(product_params)
-      redirect_to products_path
-    else
-      render json: { error: @product.errors }
-    end
-  end
-
-  # DELETE /api/v1/airlines/:slug
-  def destroy
-    if @product.destroy
-      redirect_to products_path
-    else
-      render json: {error: @product.errors}, status: 422
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to products_path }
+        format.json { render :index, status: :ok, location: @product }
+      else
+        format.html { render :edit }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -52,7 +46,7 @@ class ProductsController < ApplicationController
         :sku_code,
         :name,
         :price,
-        warehouse_products_attributes: [:id, :product_id, :warehouse_id, :item_count, :low_item_threshold, :threshold, :_destroy]
+        warehouse_products_attributes: [:id, :product_id, :warehouse_id, :threshold, :item_count, :low_item_threshold, :_destroy]
     )
   end
 

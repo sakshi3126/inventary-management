@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_191202) do
+ActiveRecord::Schema.define(version: 2020_07_03_172042) do
 
   create_table "products", force: :cascade do |t|
     t.string "sku_code"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_191202) do
     t.integer "warehouse_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "threshold"
     t.index ["product_id"], name: "index_warehouse_products_on_product_id"
     t.index ["warehouse_id"], name: "index_warehouse_products_on_warehouse_id"
   end
@@ -35,12 +36,12 @@ ActiveRecord::Schema.define(version: 2020_06_30_191202) do
   create_table "warehouses", force: :cascade do |t|
     t.string "wh_code"
     t.string "name"
-    t.integer "pincode"
     t.decimal "max_capacity"
-    t.integer "count"
-    t.integer "threshold"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "pincode"
+    t.integer "count"
+    t.integer "threshold"
     t.index ["wh_code"], name: "index_warehouses_on_wh_code", unique: true
   end
 

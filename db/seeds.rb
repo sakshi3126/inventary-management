@@ -2,19 +2,19 @@ require 'faker'
 #
 warehouses = Warehouse.create!([
                                    {
-                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(12).join,
+                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(8).join,
                                        name: "Mumbai",
                                        pincode: 400072,
                                        max_capacity: 50000
                                    },
                                    {
-                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(12).join,
+                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(8).join,
                                        name: "New Delhi",
                                        pincode: 110005,
                                        max_capacity: 40000
                                    },
                                    {
-                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(12).join,
+                                       wh_code: (('a'..'z').to_a + ('0'..'9').to_a).sample(8).join,
                                        name: "Bangalore",
                                        pincode: 560006,
                                        max_capacity: 30000
@@ -46,6 +46,7 @@ warehouses = Warehouse.create!([
                              name: Faker::Name.unique.name,
                              price: Faker::Number.between(from: 500.00, to: 15000.00))
 
+
 end
 products = Product.all
 mumbai_w = Warehouse.find_by(name: "Mumbai")
@@ -62,33 +63,33 @@ two_third = (products.count * 2 / 3)
 
 
 warehouse = Warehouse.find_by(name: "Bangalore")
-products.take(one_third).each do |product|
-  warehouse_product_stock = WarehouseProduct.create!(warehouse_id: warehouse.id,
-                                                     product_id: product.id,
-                                                     item_count: rand(1..9))
+products.order(id: :asc).take(one_third).each do |product|
+  warehouse_product_stock = WarehouseProduct.where(warehouse_id: warehouse.id,
+                                                   product_id: product.id,
+                                                   item_count: rand(1..9)).first_or_initialize
   warehouse_product_stock.low_item_threshold?
 end
 
 
-products.take(two_third).each do |product|
-  warehouse_product_stock = WarehouseProduct.create!(warehouse_id: warehouse.id,
-                                                     product_id: product.id,
-                                                     item_count: rand(11..30000))
+products.order(id: :desc).take(two_third).each do |product|
+  warehouse_product_stock = WarehouseProduct.where(warehouse_id: warehouse.id,
+                                                   product_id: product.id,
+                                                   item_count: rand(11..30000)).first_or_initialize
   warehouse_product_stock.low_item_threshold?
 end
 
 delhi = Warehouse.find_by(name: "New Delhi")
-products.take(half).each do |product|
-  warehouse_product_stock = WarehouseProduct.create!(warehouse_id: delhi.id,
-                                                     product_id: product.id,
-                                                     item_count: rand(1..9))
+products.order(id: :asc).take(half).each do |product|
+  warehouse_product_stock = WarehouseProduct.where(warehouse_id: delhi.id,
+                                                   product_id: product.id,
+                                                   item_count: rand(1..9)).first_or_initialize
   warehouse_product_stock.low_item_threshold?
 end
 
-products.take(half).each do |product|
-  warehouse_product_stock = WarehouseProduct.create!(warehouse_id: delhi.id,
-                                                     product_id: product.id,
-                                                     item_count: rand(11..30000))
+products.order(id: :desc).take(half).each do |product|
+  warehouse_product_stock = WarehouseProduct.where(warehouse_id: delhi.id,
+                                                   product_id: product.id,
+                                                   item_count: rand(11..30000)).first_or_initialize
   warehouse_product_stock.low_item_threshold?
 end
 
