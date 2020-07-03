@@ -1,0 +1,84 @@
+<div class="col-lg-10 mt-5">
+  <section class="mb-3 pt-3 pt-lg-5 pb-2">
+    <%= simple_form_for([@product], url: product_path(@product)) do |f| %>
+      <% if f.object.errors.any? %>
+        <ul class="list-group text-danger mb-3">
+          <% f.object.errors.full_messages.each do |message| %>
+            <li class="list-group-item"><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="card">
+        <div class="card-header">
+          <div class="page-header text-center text-black-50">
+            <h2>Products Edit</h2>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <%= f.input :sku_code, input_html: {class: 'form-control'} %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.input :name, input_html: {class: 'form-control'} %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.input :price, input_html: {class: 'form-control'}, value: f.object.price %>
+          </div>
+          <br>
+          <div class="border-dashed"></div>
+          <br>
+          <h6 class="text-uppercase text-black-50 mb-1"> Products Details</h6>
+          <div class="form-row d-none d-md-flex">
+            <div class="col-8">
+              <div class="form-group mb-0">
+                <label>Warehouse Name</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group mb-0">
+                <label> Threshold</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group mb-0">
+                <label>Item Count</label>
+              </div>
+            </div>
+          </div>
+          <% if @product.warehouse_products.present? %>
+            <%= f.fields_for :warehouse_products, f.object.warehouse_products, wrapper_tag: :div do |row| %>
+              <div class="error list-group disabled align-center text-danger mb-0 px-1"></div>
+              <div class="form-row flex-row align-items-start">
+                <%= row.hidden_field :product_id %>
+                <%= row.hidden_field :warehouse_id %>
+                <%#binding.pry %>
+                <div class="col-12 col-md-8">
+                  <div class="form-group mb-3">
+                    <%= row.input :warehouse, input_html: {class: 'form-control', value: row.object.warehouse.name}, readonly: true, label: false %>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <%= row.input :threshold, input_html: {class: 'form-control', value: row.object.threshold}, label: false %>
+                </div>
+                <div class="col-2 col-md-2">
+                  <%= row.input :item_count, input_html: {class: 'form-control', value: row.object.item_count}, label: false %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="card-footer">
+          <div class="form-row">
+            <%= button_tag(type: "submit", class: "btn btn-dark btn-color btn-block") do %>
+              <i class="fal fa-pen"></i> Update
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </section>
+</div>

@@ -5,9 +5,9 @@ module DisplayHelper
     when number < 10
       'danger'
     when (number >= 10 && number <= 5000)
-      'primary'
-    else
       'info'
+    else
+      ''
     end
   end
 

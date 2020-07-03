@@ -2,6 +2,14 @@ class Product < ApplicationRecord
   has_many :warehouse_products, inverse_of: :product, dependent: :destroy
   has_many :warehouses, through: :warehouse_products
 
+  accepts_nested_attributes_for :warehouse_products, allow_destroy: true, reject_if: proc { |a| a['product_id'].blank? }
+
+  validates_uniqueness_of :sku_code
+
+  validates_presence_of :sku_code
+  validates_presence_of :name
+  validates_presence_of :price
+
   def set_defaults
     self.sku_code ||= generate_sku
 
