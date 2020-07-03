@@ -1,0 +1,43 @@
+<div class="col-lg-12">
+  <div class="card mt-1">
+    <div class="card-body">
+      <table class="datatable table table-bordered table-striped table-hover dt-responsive wrap-whitespace w-100" data-fixed-header="false">
+        <h2 class="sub-header text-center mt-4">Product List</h2>
+        <thead>
+        <tr>
+          <th class="no-sort">ID</th>
+          <th class="sort">Sku Code</th>
+          <th class="no-sort">Product Name</th>
+          <th class="no-sort">Mumbai</th>
+          <th class="sort">Product Count</th>
+          <th class="sort">Minimum Threshold</th>
+          <th class="no-sort">New Delhi</th>
+          <th class="sort">Product Count</th>
+          <th class="sort">Minimum Threshold</th>
+          <th class="no-sort">Bangalore</th>
+          <th class="sort">Product Count</th>
+          <th class="sort">Minimum Threshold</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @products.each_with_index do |product, index| %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= link_to (product.sku_code), edit_product_path(product.id) %></td>
+            <td><%= product.name %></td>
+            <% product.warehouse_products.each_with_index do |row, index| %>
+              <td> <%= row.warehouse.name %> </td>
+              <td class="font-weight-bold " style="font-size:20px;"><%= status_badge(row.item_count) %></td>
+              <td><%= row.threshold %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="container pagination justify-content-center">
+      <%= paginate @warehouse_products %>
+    </div>
+  </div>
+</div>
+
