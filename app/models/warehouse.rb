@@ -3,8 +3,8 @@ class Warehouse < ApplicationRecord
   has_many :warehouse_products, dependent: :destroy
   has_many :products, through: :warehouse_products
 
-  validates_uniqueness_of :wh_code, length: { in: 4..12 }
-  validate :code_length
+  validates_uniqueness_of :wh_code
+  validates_length_of :wh_code, in: 4..16, message: "should be in range between 4 to 12"
   validates_presence_of :wh_code
   validates_presence_of :name
   validates_presence_of :max_capacity

@@ -5,7 +5,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :warehouse_products, allow_destroy: true, reject_if: proc { |a| a['product_id'].blank? }
 
   validates_uniqueness_of :sku_code
-  validate :code_length
+  validates_length_of :sku_code, is: 8, message: 'Product code should be equal to 8'
   validates_presence_of :sku_code
   validates_presence_of :name
   validates_presence_of :price
@@ -34,7 +34,7 @@ class Product < ApplicationRecord
   end
 
   def code_length
-    if sku_code.present? && sku_code && (sku_code.length < 8 || sku_code.length > 8)
+    if sku_code.present? && (sku_code.length < 8 || sku_code.length > 8)
       errors.add(:sku_code, 'must be 8 digit')
     end
   end
