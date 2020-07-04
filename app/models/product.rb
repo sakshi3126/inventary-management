@@ -5,19 +5,14 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :warehouse_products, allow_destroy: true, reject_if: proc { |a| a['product_id'].blank? }
 
   validates_uniqueness_of :sku_code
-
+  validate :code_length
   validates_presence_of :sku_code
   validates_presence_of :name
   validates_presence_of :price
 
   def set_defaults
     self.sku_code ||= generate_sku
-
   end
-
-  # def get_pickup_quantity
-  #   self.total_quantity - self.warehouse_products.sum(&:item_count)
-  # end
 
   def generate_sku(sku = [])
     length = 5
@@ -36,5 +31,11 @@ class Product < ApplicationRecord
 
     sku = sku_characters.join
     return sku
+  end
+
+  def code_length
+    if sku_code.present? && sku_code && (sku_code.length < 8 || sku_code.length > 8)
+      errors.add(:sku_code, 'must be 8 digit')
+    end
   end
 end

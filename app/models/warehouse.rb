@@ -1,8 +1,9 @@
 class Warehouse < ApplicationRecord
 
   has_many :warehouse_products, dependent: :destroy
+  has_many :products, through: :warehouse_products
 
-  validates_uniqueness_of :wh_code
+  validates_uniqueness_of :wh_code, length: { in: 4..12 }
   validate :code_length
   validates_presence_of :wh_code
   validates_presence_of :name
@@ -17,7 +18,7 @@ class Warehouse < ApplicationRecord
   end
 
   def code_length
-    if wh_code.present? && wh_code && (wh_code.length < 8 || wh_code.length > 8)
+    if wh_code.present? && wh_code && (wh_code.length < 4 || wh_code.length > 16)
       errors.add(:wh_code, 'must be 8 digit')
     end
   end
