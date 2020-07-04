@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
     else
       @products = Product.order('created_at').page(params[:page]).per(10)
     end
+    @warehouses = Warehouse.all
   end
 
   def edit
