@@ -4,7 +4,7 @@ module DisplayHelper
     case
     when number < 10
       'danger'
-    when (number >= 10 && number <= 5000)
+    when (number >= 10 && number <= 1000)
       'info'
     else
       ''

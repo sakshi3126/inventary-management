@@ -2,8 +2,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update]
 
   def index
-    @products = Product.order('created_at').page(params[:page]).per(10)
-    @warehouse_products = WarehouseProduct.order('created_at').page(params[:page]).per(10)
+    if params[:search].present?
+      search = params[:search]['name']
+      @products = Product.where("name LIKE ?", "%" + search + "%").or(Product.where("sku_code LIKE ?", "%" + search + "%"))
+                     .order('created_at').page(params[:page]).per(10)
+    else
+      @products = Product.order('created_at').page(params[:page]).per(10)
+    end
   end
 
   def edit
