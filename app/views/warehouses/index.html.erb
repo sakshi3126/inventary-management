@@ -1,0 +1,33 @@
+<div class="col-lg-12">
+  <div class="card mt-5">
+    <div class="card-body">
+      <table class="datatable table table-bordered table-striped table-hover dt-responsive wrap-whitespace w-100" data-fixed-header="false">
+        <h4 class="sub-header text-center text-black-50 mt-4">Product List Page</h4>
+        <thead>
+        <tr>
+          <th class="no-sort">Sr. NO</th>
+          <th class="sort">Wh Code</th>
+          <th class="no-sort">warehouse Name</th>
+          <th class="no-sort">Max Capacity</th>
+          <th class="sort">Total Products</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @warehouses.each_with_index do |warehouse, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= link_to (warehouse.wh_code), warehouse_path(warehouse.id) %></td>
+            <td><%= warehouse.name %></td>
+            <td><%= warehouse.max_capacity %></td>
+            <td><%= warehouse.products.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="container pagination justify-content-center" >
+      <%= paginate @warehouses %>
+    </div>
+  </div>
+</div>
+

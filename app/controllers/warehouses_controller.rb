@@ -1,6 +1,10 @@
 class WarehousesController < ApplicationController
   before_action :set_warehouse, only: [:edit, :update, :show]
 
+  def index
+    @warehouses = Warehouse.order('created_at').page(params[:page]).per(10)
+  end
+
   def new
     @warehouse = Warehouse.new()
   end
