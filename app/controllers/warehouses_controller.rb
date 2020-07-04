@@ -6,14 +6,14 @@ class WarehousesController < ApplicationController
   end
 
   def show
-
+    @warehouse_products = @warehouse.warehouse_products.order('created_at').page(params[:page]).per(15)
   end
 
   def create
     @warehouse= Warehouse.new(warehouse_params)
     respond_to do |format|
       if @warehouse.save
-        @warehouse_product = WarehousProductCreation.new(@warehouse).call
+        warehouse_product = WarehousProductCreation.new(@warehouse).call
         format.html { redirect_to @warehouse, notice: 'Warehouse was successfully created.' }
         format.json { render :show, status: :created, location: @warehouse }
       else

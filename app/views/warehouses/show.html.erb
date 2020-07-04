@@ -1,0 +1,64 @@
+<div class="col-lg-11 ml-lg-5 mt-5 mr-lg-5">
+  <div class="card mb-3">
+    <div class="card-body">
+      <section class="mb-3">
+        <div>
+          <h6 class="text-uppercase text-black-50 mb-1"> Warehouse Details</h6>
+          <div class="form-row mt-2 align-items-center">
+            <div class="col-6 col-md-4 mb-2">
+              <strong class="d-block">Warehouse #</strong>
+              <%= @warehouse.name %>
+            </div>
+            <div class="col-6 col-md-4 mb-2">
+              <strong class="d-block">Warehouse Code#</strong>
+              <%= @warehouse.wh_code %>
+            </div>
+            <div class="col-6 col-md-4 mb-2">
+              <strong class="d-block">Pincode #</strong>
+              <%= @warehouse.pincode %>
+            </div>
+            <div class="col-6 col-md-4 mb-2">
+              <strong class="d-block">Threshold #</strong>
+              <%= @warehouse.threshold %>
+            </div>
+            <div class="col-6 col-md-4 mb-2">
+              <strong class="d-block">Max Capacity #</strong>
+              <%= @warehouse.max_capacity %>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="d-md-flex text-black-50 justify-content-between mb-1">
+        <h6 class="display-5 mb-1">Product Stock</h6>
+      </div>
+      <table class="datatable table table-bordered table-striped table-hover dt-responsive wrap-whitespace w-100" data-fixed-header="false">
+        <thead>
+        <tr>
+          <th class="no-sort">Sr. NO</th>
+          <th class="sort">Sku Code</th>
+          <th class="no-sort">Product Name</th>
+          <th class="sort">Product Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @warehouse_products.each_with_index do |product, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= link_to (product.product.sku_code), edit_product_path(product.product.id) %></td>
+            <td><%= product.to_s %></td>
+            <td><%= status_badge(product.item_count) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="container pagination justify-content-center">
+      <%= paginate @warehouse_products %>
+    </div>
+  </div>
+</div>
+
