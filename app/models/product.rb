@@ -38,4 +38,13 @@ class Product < ApplicationRecord
       errors.add(:sku_code, 'must be 8 digit')
     end
   end
+
+
+  def self.search(search)
+    if search
+      Product.all
+    else
+      Product.all
+    end
+  end
 end
