@@ -39,12 +39,4 @@ class Product < ApplicationRecord
     end
   end
 
-
-  def self.search(search)
-    if search
-      Product.all
-    else
-      Product.all
-    end
-  end
 end
