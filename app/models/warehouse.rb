@@ -18,7 +18,7 @@ class Warehouse < ApplicationRecord
   end
 
   def code_length
-    if wh_code.present? && wh_code && (wh_code.length < 4 || wh_code.length > 16)
+    if wh_code.present? && (wh_code.length < 4 || wh_code.length > 16)
       errors.add(:wh_code, 'must be 8 digit')
     end
   end

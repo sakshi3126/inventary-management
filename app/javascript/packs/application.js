@@ -19,8 +19,13 @@ require("channels")
 
 import 'bootstrap'
 import '../stylesheets/application.scss'
+import products from "./views/products/init";
 
 document.addEventListener("turbolinks:load", () => {
+    products: products
     $('[data-toggle="tooltip"]').tooltip()
     $('[data-toggle="popover"]').popover()
+    setTimeout(function() {
+        $('.alert-box').remove();
+    }, 2000);
 })
