@@ -9,7 +9,7 @@ class Warehouse < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :max_capacity
   validates_presence_of :pincode
-
+  accepts_nested_attributes_for :warehouse_products, allow_destroy: true, reject_if: proc { |a| a['product_id'].blank? }
   after_initialize :set_defaults, if: :new_record?
 
   def set_defaults

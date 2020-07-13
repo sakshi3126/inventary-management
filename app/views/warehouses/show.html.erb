@@ -14,6 +14,10 @@
               <%= @warehouse.wh_code %>
             </div>
             <div class="col-6 col-md-4 mb-2">
+              <%= link_to 'delete', warehouse_path(@warehouse.id), :method => :delete, class: 'btn btn-success' %>
+              <%= link_to 'edit', edit_warehouse_path(@warehouse.id), class: 'btn btn-success' %>
+            </div>
+            <div class="col-6 col-md-4 mb-2">
               <strong class="d-block">Pincode #</strong>
               <%= @warehouse.pincode %>
             </div>

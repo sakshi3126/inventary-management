@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   resources :warehouse_products
   resources :products
-  resources :warehouses, only: [:new, :create, :edit, :update, :show, :index]
+  resources :warehouses do
+    get 'add_item_count'
+  end
 end

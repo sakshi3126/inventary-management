@@ -3,8 +3,8 @@ RSpec.describe Product, type: :model do
 
   let (:product) {
     Product.new(name: "Anything",
-                        sku_code: "IM97645g",
-                        price: 5000)
+                sku_code: "IM97645g",
+                price: 5000)
   }
 
   it "is not valid without a name" do
@@ -39,6 +39,18 @@ RSpec.describe Product, type: :model do
   it "is not valid without a price" do
     product.price = nil
     expect(product).to_not be_valid
+  end
+
+  it "is not valid without price" do
+    product = Product.new(price: nil)
+    product.valid?
+    expect(product.errors[:price]).to include("can't be blank")
+  end
+
+  context 'before creation' do
+    it 'cannot have warehouse products' do
+      expect { Product.create.warehouse_products.create! }.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 
 end

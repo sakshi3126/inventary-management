@@ -1,5 +1,5 @@
 class WarehousesController < ApplicationController
-  before_action :set_warehouse, only: [:edit, :update, :show]
+  before_action :set_warehouse, only: [:edit, :update, :show, :destroy]
 
   def index
     @warehouses = Warehouse.order('created_at').page(params[:page]).per(10)
@@ -9,8 +9,35 @@ class WarehousesController < ApplicationController
     @warehouse = Warehouse.new()
   end
 
+  def edit
+
+  end
+
+  def update
+    if @warehouse.update(warehouse_params)
+      redirect_to warehouse_path(@warehouse)
+    else
+      render 'edit'
+    end
+  end
+
   def show
     @warehouse_products = @warehouse.warehouse_products.order('created_at').page(params[:page]).per(15)
+  end
+
+  def add_item_count
+    @warehouse = @warehouse.warehouse_products
+  end
+
+
+  def destroy
+    if @warehouse.present?
+      if @warehouse.destroy
+        redirect_to products_path
+      else
+        render 'new'
+      end
+    end
   end
 
   def create
@@ -37,7 +64,7 @@ class WarehousesController < ApplicationController
         :name,
         :pincode,
         :max_capacity,
-        # warehouse_products_attributes: [:id, :product_id, :warehouse_id, :item_count, :low_item_threshold, :threshold, :_destroy]
+        warehouse_products_attributes: [:id, :product_id, :warehouse_id, :item_count, :low_item_threshold, :threshold, :_destroy]
     )
   end
 
