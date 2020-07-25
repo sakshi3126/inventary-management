@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is Inventary management System built to manage inventary stocks and add new product to inventary and warehouses.
+![Screenshot from 2020-07-25 19-28-20](https://user-images.githubusercontent.com/39982004/88458686-8092f480-cead-11ea-9af7-c56b52d8bf25.png)
 
-Things you may want to cover:
+* The red color of Item count shows the minimum threshold quantity of item.
+* The functionality of editing the product and updating its count in all the warehouse is given.
+* Can create new warehouse and also can edit and destroy
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+** Multilingual language support functionality is also added by using I18n.
